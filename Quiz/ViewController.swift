@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     let quiz = [
         Question(q: "A slug's blood is green.", a: "True"),
@@ -65,9 +66,13 @@ class ViewController: UIViewController {
         // Reset the buttons
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
+        
+        updateProgressBar()
     }
     
-    
+    func updateProgressBar() {
+        progressBar.progress = Float(questionNum+1) / Float(quiz.count)
+    }
     
 }
 
