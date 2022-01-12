@@ -10,8 +10,9 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var choiceOneButton: UIButton!
+    @IBOutlet weak var choiceTwoButton: UIButton!
+    @IBOutlet weak var choiceThreeButton: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var scoreLabel: UILabel!
     
@@ -29,7 +30,7 @@ class ViewController: UIViewController {
         let userAnswer = sender.currentTitle!
         let result = quizBrain.checkAnswer(userAnswer: userAnswer)
         
-        if result == true {
+        if result {
             sender.backgroundColor = UIColor.green
         } else {
             sender.backgroundColor = UIColor.red
@@ -41,12 +42,23 @@ class ViewController: UIViewController {
     }
     
     @objc func updateUI () {
+        // Question
         questionLabel.text = quizBrain.getQuestionText()
+        
+        // Choices
+        let mcq = quizBrain.getChoices()
+        choiceOneButton.setTitle(mcq[0], for: .normal)
+        choiceTwoButton.setTitle(mcq[1], for: .normal)
+        choiceThreeButton.setTitle(mcq[2], for: .normal)
         updateProgressBar()
+        
+        // Score
         scoreLabel.text = "Score: \(quizBrain.getScore())"
+        
         // Reset the buttons
-        trueButton.backgroundColor = UIColor.clear
-        falseButton.backgroundColor = UIColor.clear
+        choiceOneButton.backgroundColor = UIColor.clear
+        choiceTwoButton.backgroundColor = UIColor.clear
+        choiceThreeButton.backgroundColor = UIColor.clear
     }
     
     func updateProgressBar() {
